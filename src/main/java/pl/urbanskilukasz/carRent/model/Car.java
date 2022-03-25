@@ -1,11 +1,11 @@
 package pl.urbanskilukasz.carRent.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -13,10 +13,12 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//@RequiredArgsConstructor
 public class Car {
 
     @Id
-    int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
     String vehicleBrand;
     String model;
     int yearOfProduction;

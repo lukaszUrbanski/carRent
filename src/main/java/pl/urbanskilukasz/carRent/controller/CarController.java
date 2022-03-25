@@ -1,15 +1,13 @@
 package pl.urbanskilukasz.carRent.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.urbanskilukasz.carRent.model.Car;
 import pl.urbanskilukasz.carRent.service.CarService;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/cars")
 public class CarController {
 
     private final CarService carService;
@@ -18,18 +16,23 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String hello(){
         return "Hello World!";
     }
 
-    @GetMapping("/cars/{id}")
-    public String getCar(@PathVariable long id){
-        return carService.returnCar();
-    }
-
-    @GetMapping("/cars")
+    @GetMapping("")
     public List<Car> returnCarList(){
         return carService.returnCars();
     }
+
+    @GetMapping("/{id}")
+    public Car getCar(@PathVariable long id){
+        return carService.returnCar(id);
+    }
+
+   @GetMapping(path = "/vehicleBrand")
+    public  List<Car> getCarsByVehicleBrand (@RequestParam("vehicleBrand") String vehicleBrand){
+        return carService.returnCarsByVehicleBrand(vehicleBrand);
+   }
 }
