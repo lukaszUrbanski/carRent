@@ -25,4 +25,8 @@ public class CarService {
     public List<Car> returnCarsByVehicleBrand(String vehicleBrand) {
         return carRepository.findByVehicleBrand(vehicleBrand);
     }
+
+    public Car createCar(Car car) {
+        return carRepository.save(car);
+    }
 }

@@ -12,6 +12,7 @@ public class CarController {
 
     private final CarService carService;
 
+
     public CarController(CarService carService) {
         this.carService = carService;
     }
@@ -34,5 +35,10 @@ public class CarController {
    @GetMapping(path = "/vehicleBrand")
     public  List<Car> getCarsByVehicleBrand (@RequestParam("vehicleBrand") String vehicleBrand){
         return carService.returnCarsByVehicleBrand(vehicleBrand);
+   }
+
+   @PostMapping("/car")
+    public Car crateCar(@RequestBody Car car){
+        return carService.createCar(car);
    }
 }
