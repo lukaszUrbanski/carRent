@@ -1,32 +1,55 @@
 package pl.urbanskilukasz.carRent.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.urbanskilukasz.carRent.mapper.CarMapper;
 import pl.urbanskilukasz.carRent.model.Car;
+import pl.urbanskilukasz.carRent.model.CarDto;
 import pl.urbanskilukasz.carRent.repository.CarRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CarService {
 
+    private static final Long EMPTY_ID = null;
     private final CarRepository carRepository;
+    private final CarMapper carMapper = new CarMapper();
 
-    public Car returnCar(long id) {
-        return carRepository.findById(id).orElseThrow();
+    public CarService(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
+
+    public CarDto returnCar(long id) {
+        return carMapper.mapToDto(carRepository.findById(id).orElseThrow());
 
     }
 
-    public List<Car> returnCars() {
-        return carRepository.findAll();
+    public List<CarDto> returnCars() {
+
+        return carRepository.findAll().stream()
+                .map(car -> carMapper.mapToDto(car))
+                .collect(Collectors.toList());
     }
 
     public List<Car> returnCarsByVehicleBrand(String vehicleBrand) {
         return carRepository.findByVehicleBrand(vehicleBrand);
     }
 
-    public Car createCar(Car car) {
+    public Car createCar(CarDto carDto) {
+        return carRepository.save(carMapper.mapToCar(carDto));
+    }
+
+
+    public Car updateCar(CarDto carDto, Long id) {
+        Car car = carMapper.mapToCar(carDto);
+        car.setId(id);
         return carRepository.save(car);
+    }
+
+    public void deleteCar(Long id) {
+        carRepository.deleteById(id);
     }
 }

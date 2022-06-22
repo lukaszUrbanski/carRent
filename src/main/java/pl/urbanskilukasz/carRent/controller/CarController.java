@@ -2,6 +2,7 @@ package pl.urbanskilukasz.carRent.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.urbanskilukasz.carRent.model.Car;
+import pl.urbanskilukasz.carRent.model.CarDto;
 import pl.urbanskilukasz.carRent.service.CarService;
 
 import java.util.List;
@@ -23,12 +24,13 @@ public class CarController {
     }
 
     @GetMapping("")
-    public List<Car> returnCarList(){
+    public List<CarDto> returnCarList(){
         return carService.returnCars();
     }
 
     @GetMapping("/{id}")
-    public Car getCar(@PathVariable long id){
+    public CarDto getCar(@PathVariable long id){
+        
         return carService.returnCar(id);
     }
 
@@ -37,8 +39,19 @@ public class CarController {
         return carService.returnCarsByVehicleBrand(vehicleBrand);
    }
 
-   @PostMapping("/car")
-    public Car crateCar(@RequestBody Car car){
-        return carService.createCar(car);
+   @PostMapping("")
+    public Car crateCar(@RequestBody CarDto carDto){
+        return carService.createCar(carDto);
+   }
+
+   @PutMapping("/{id}")
+    public Car updateCar (@RequestBody CarDto carDto, @PathVariable Long id){
+        return carService.updateCar(carDto, id);
+   }
+
+   @DeleteMapping("/{id}")
+    public void deleteCar(@PathVariable Long id){
+        carService.deleteCar(id);
+
    }
 }

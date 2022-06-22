@@ -13,7 +13,6 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@RequiredArgsConstructor
 public class Car {
 
     @Id
