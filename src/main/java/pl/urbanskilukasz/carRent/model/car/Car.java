@@ -1,4 +1,4 @@
-package pl.urbanskilukasz.carRent.model;
+package pl.urbanskilukasz.carRent.model.car;
 
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;

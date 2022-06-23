@@ -1,11 +1,9 @@
 package pl.urbanskilukasz.carRent.service;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.urbanskilukasz.carRent.mapper.CarMapper;
-import pl.urbanskilukasz.carRent.model.Car;
-import pl.urbanskilukasz.carRent.model.CarDto;
+import pl.urbanskilukasz.carRent.model.car.Car;
+import pl.urbanskilukasz.carRent.model.car.CarDto;
 import pl.urbanskilukasz.carRent.repository.CarRepository;
 
 import java.util.List;

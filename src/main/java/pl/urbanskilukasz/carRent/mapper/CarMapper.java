@@ -1,7 +1,7 @@
 package pl.urbanskilukasz.carRent.mapper;
 
-import pl.urbanskilukasz.carRent.model.Car;
-import pl.urbanskilukasz.carRent.model.CarDto;
+import pl.urbanskilukasz.carRent.model.car.Car;
+import pl.urbanskilukasz.carRent.model.car.CarDto;
 
 
 public class CarMapper {

@@ -1,8 +1,8 @@
 package pl.urbanskilukasz.carRent.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pl.urbanskilukasz.carRent.model.Car;
-import pl.urbanskilukasz.carRent.model.CarDto;
+import pl.urbanskilukasz.carRent.model.car.Car;
+import pl.urbanskilukasz.carRent.model.car.CarDto;
 import pl.urbanskilukasz.carRent.service.CarService;
 
 import java.util.List;
