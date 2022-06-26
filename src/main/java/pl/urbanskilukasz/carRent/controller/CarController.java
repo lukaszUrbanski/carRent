@@ -1,14 +1,17 @@
 package pl.urbanskilukasz.carRent.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.*;
+import pl.urbanskilukasz.carRent.mapper.CarDtoMapper;
 import pl.urbanskilukasz.carRent.model.car.Car;
-import pl.urbanskilukasz.carRent.model.car.CarDto;
+import pl.urbanskilukasz.carRent.model.dto.CarDto;
 import pl.urbanskilukasz.carRent.service.CarService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/cars")
 public class CarController {
 
     private final CarService carService;
@@ -24,8 +27,9 @@ public class CarController {
     }
 
     @GetMapping("")
-    public List<CarDto> returnCarList(){
-        return carService.returnCars();
+    public List<CarDto> returnCarList(@RequestParam(required = false) Integer page){
+      int pageNumber = page ==  null || page <= 0  ? 0 : page;
+        return CarDtoMapper.mapToCarDtoList(carService.returnCars(pageNumber));
     }
 
     @GetMapping("/{id}")
@@ -34,11 +38,12 @@ public class CarController {
         return carService.returnCar(id);
     }
 
-   @GetMapping(path = "/vehicleBrand")
+   @GetMapping("/vehicleBrand")
     public  List<Car> getCarsByVehicleBrand (@RequestParam("vehicleBrand") String vehicleBrand){
         return carService.returnCarsByVehicleBrand(vehicleBrand);
    }
 
+   
    @PostMapping("")
     public Car crateCar(@RequestBody CarDto carDto){
         return carService.createCar(carDto);
@@ -52,6 +57,5 @@ public class CarController {
    @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable Long id){
         carService.deleteCar(id);
-
    }
 }

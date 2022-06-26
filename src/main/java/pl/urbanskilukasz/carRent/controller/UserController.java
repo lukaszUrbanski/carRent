@@ -8,7 +8,7 @@ import pl.urbanskilukasz.carRent.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @AllArgsConstructor
 public class UserController {
 
@@ -27,5 +27,10 @@ public class UserController {
     @PostMapping("")
     public User createUser (@RequestBody User user){
         return userService.createUser(user);
+    }
+
+    @PutMapping("")
+        public User updateUser(@RequestBody User user){
+        return userService.updateUser(user);
     }
 }

@@ -1,35 +1,32 @@
 package pl.urbanskilukasz.carRent.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import pl.urbanskilukasz.carRent.mapper.CarMapper;
+import pl.urbanskilukasz.carRent.mapper.CarDtoMapper;
 import pl.urbanskilukasz.carRent.model.car.Car;
-import pl.urbanskilukasz.carRent.model.car.CarDto;
+import pl.urbanskilukasz.carRent.model.dto.CarDto;
 import pl.urbanskilukasz.carRent.repository.CarRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CarService {
 
-    private static final Long EMPTY_ID = null;
     private final CarRepository carRepository;
-    private final CarMapper carMapper = new CarMapper();
+
+    private final int PAGE_SIZE = 10;
 
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
 
     public CarDto returnCar(long id) {
-        return carMapper.mapToDto(carRepository.findById(id).orElseThrow());
+        return CarDtoMapper.mapToCarDto(carRepository.findById(id).orElseThrow());
 
     }
 
-    public List<CarDto> returnCars() {
-
-        return carRepository.findAll().stream()
-                .map(car -> carMapper.mapToDto(car))
-                .collect(Collectors.toList());
+    public List<Car> returnCars(int page) {
+        return carRepository.findAllCar(PageRequest.of(page, PAGE_SIZE));
     }
 
     public List<Car> returnCarsByVehicleBrand(String vehicleBrand) {
@@ -37,12 +34,12 @@ public class CarService {
     }
 
     public Car createCar(CarDto carDto) {
-        return carRepository.save(carMapper.mapToCar(carDto));
+        return carRepository.save(CarDtoMapper.mapToCar(carDto));
     }
 
 
     public Car updateCar(CarDto carDto, Long id) {
-        Car car = carMapper.mapToCar(carDto);
+        Car car = CarDtoMapper.mapToCar(carDto);
         car.setId(id);
         return carRepository.save(car);
     }
