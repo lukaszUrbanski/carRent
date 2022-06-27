@@ -2,6 +2,8 @@ package pl.urbanskilukasz.carRent.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.urbanskilukasz.carRent.mapper.UserDtoMapper;
+import pl.urbanskilukasz.carRent.model.dto.UserDto;
 import pl.urbanskilukasz.carRent.model.user.User;
 import pl.urbanskilukasz.carRent.repository.UserRepository;
 
@@ -21,7 +23,9 @@ public class UserService {
         return userRepository.getById(id);
     }
 
-    public User createUser(User user) {
+    public User createUser(UserDto userDto) {
+        User user = UserDtoMapper.mapToUSer(userDto);
+
         return userRepository.save(user);
     }
 

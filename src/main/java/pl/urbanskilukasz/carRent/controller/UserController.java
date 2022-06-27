@@ -2,6 +2,7 @@ package pl.urbanskilukasz.carRent.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.urbanskilukasz.carRent.model.dto.UserDto;
 import pl.urbanskilukasz.carRent.model.user.User;
 import pl.urbanskilukasz.carRent.service.UserService;
 
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User createUser (@RequestBody User user){
-        return userService.createUser(user);
+    public User createUser (@RequestBody UserDto userDto){
+        return userService.createUser(userDto);
     }
 
     @PutMapping("")
